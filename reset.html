@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reset Password — CountAble</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .field { margin: 14px 0; text-align: left; }
+    .field label { display:block; font-size:12px; font-weight:700;
+      letter-spacing:.08em; text-transform:uppercase; color:var(--muted);
+      margin-bottom:6px; }
+    .field input { width:100%; padding:12px 14px; font-size:16px;
+      border-radius:12px; border:1.5px solid rgba(255,255,255,.25);
+      background:rgba(0,0,0,.35); color:var(--fg); outline:none; }
+    .field input:focus { border-color:var(--amber); }
+    .btn { width:100%; margin-top:8px; padding:14px; font-size:14px;
+      font-weight:800; letter-spacing:.1em; text-transform:uppercase;
+      color:var(--amber-dark); background:var(--amber); border:none;
+      border-radius:12px; cursor:pointer; }
+    .btn[disabled] { opacity:.5; cursor:default; }
+    .msg { margin-top:14px; font-size:14px; }
+    .msg.err { color:hsl(0,80%,65%); }
+    .msg.ok { color:var(--amber); font-weight:600; }
+    .narrow { max-width: 420px; margin: 0 auto; text-align:center; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="./">COUNT<span>ABLE</span></a>
+    </header>
+
+    <div class="card narrow">
+      <h1>Reset your password</h1>
+      <p id="intro" class="small">Choose a new password for your CountAble
+        account, then return to the app and sign in.</p>
+      <form id="form" style="display:none">
+        <div class="field">
+          <label for="pw1">New password</label>
+          <input id="pw1" type="password" autocomplete="new-password" minlength="8" required />
+        </div>
+        <div class="field">
+          <label for="pw2">Confirm new password</label>
+          <input id="pw2" type="password" autocomplete="new-password" minlength="8" required />
+        </div>
+        <button class="btn" id="submit" type="submit">Set new password</button>
+      </form>
+      <p id="msg" class="msg"></p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script>
+    // The reset link from the email lands here with recovery tokens in the
+    // URL fragment. The publishable key is public by design (RLS protects
+    // all data) — same key the app ships with.
+    const sb = window.supabase.createClient(
+      "https://kqvcpcxcmgafbhjdjnak.supabase.co",
+      "sb_publishable_VQKUo6VW3ebwj8DrFWR2hg_rt8EIVMy",
+      { auth: { detectSessionInUrl: false, persistSession: false } },
+    );
+
+    const params = new URLSearchParams(location.hash.slice(1));
+    const accessToken = params.get("access_token");
+    const refreshToken = params.get("refresh_token");
+    const type = params.get("type");
+    const errDesc = params.get("error_description");
+    const form = document.getElementById("form");
+    const msg = document.getElementById("msg");
+    const submit = document.getElementById("submit");
+
+    if (errDesc) {
+      msg.textContent = decodeURIComponent(errDesc).replace(/\+/g, " ") +
+        " — request a new reset link from the app's sign-in screen.";
+      msg.className = "msg err";
+    } else if (!accessToken || type !== "recovery") {
+      msg.textContent =
+        "This link is invalid or has expired. Open the CountAble app, tap " +
+        "“Forgot password”, and request a fresh link.";
+      msg.className = "msg err";
+    } else {
+      form.style.display = "block";
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const p1 = document.getElementById("pw1").value;
+      const p2 = document.getElementById("pw2").value;
+      msg.className = "msg";
+      msg.textContent = "";
+      if (p1 !== p2) {
+        msg.textContent = "Passwords don't match.";
+        msg.className = "msg err";
+        return;
+      }
+      submit.disabled = true;
+      try {
+        const { error: sessErr } = await sb.auth.setSession({
+          access_token: accessToken,
+          refresh_token: refreshToken,
+        });
+        if (sessErr) throw sessErr;
+        const { error: updErr } = await sb.auth.updateUser({ password: p1 });
+        if (updErr) throw updErr;
+        form.style.display = "none";
+        document.getElementById("intro").style.display = "none";
+        msg.textContent =
+          "Password updated ✓ — return to the CountAble app and sign in " +
+          "with your new password.";
+        msg.className = "msg ok";
+      } catch (err) {
+        msg.textContent = (err && err.message ? err.message : "Something went wrong") +
+          " — you can request a fresh link from the app.";
+        msg.className = "msg err";
+        submit.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
