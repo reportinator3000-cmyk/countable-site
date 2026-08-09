@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>You're Confirmed — CountAble</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .narrow { max-width: 460px; margin: 0 auto; text-align: center; }
+    /* The app's slow fade-in (2750ms route fade is the house pace); this is
+       its short cousin so the page arrives rather than snaps. */
+    .arrive { opacity: 0; animation: arrive 1400ms cubic-bezier(.2,.6,.2,1) forwards; }
+    .arrive.d1 { animation-delay: 240ms; }
+    .arrive.d2 { animation-delay: 520ms; }
+    @keyframes arrive { to { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) {
+      .arrive, .arrive.d1, .arrive.d2 { animation: none; opacity: 1; }
+    }
+    .robot { display: block; margin: 4px auto 20px; width: 84px; height: 84px; }
+    .robot path, .robot circle, .robot rect, .robot ellipse { fill: var(--amber); }
+    .confirmed {
+      font-size: 15px; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; line-height: 1.7; color: var(--fg);
+      margin: 0 auto; max-width: 340px;
+    }
+    .welcome {
+      font-size: 27px; font-weight: 900; letter-spacing: .14em;
+      text-transform: uppercase; margin-top: 20px; color: var(--fg);
+    }
+    .welcome span { color: var(--amber); }
+    .btn {
+      display: inline-block; margin-top: 26px; padding: 14px 28px;
+      font-size: 14px; font-weight: 800; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--amber-dark);
+      background: var(--amber); border: none; border-radius: 12px;
+      text-decoration: none; cursor: pointer;
+    }
+    .hint { margin-top: 16px; font-size: 13px; color: var(--muted); }
+    .err { color: hsl(0,80%,68%); font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="./">COUNT<span>ABLE</span></a>
+    </header>
+
+    <div class="card narrow">
+      <!-- The app's own DATA-tab robot, ported 1:1 from
+           countable-app/src/components/icons/RobotIcon.tsx (64x64, even-odd
+           cutouts for the eyes and mouth). Same mark as the welcome card. -->
+      <svg class="robot arrive" viewBox="0 0 64 64" aria-hidden="true">
+        <circle cx="32" cy="6" r="3" />
+        <rect x="31" y="8" width="2" height="8" />
+        <ellipse cx="32" cy="16" rx="6" ry="2.5" />
+        <rect x="4" y="32" width="6" height="10" rx="2" />
+        <rect x="54" y="32" width="6" height="10" rx="2" />
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M12 22a4 4 0 0 1 4-4h32a4 4 0 0 1 4 4v26a4 4 0 0 1-4 4H16a4 4 0 0 1-4-4V22ZM16 30a6 6 0 0 1 12 0v2h-3v-2a3 3 0 0 0-6 0v2h-3v-2Zm20 0a6 6 0 0 1 12 0v2h-3v-2a3 3 0 0 0-6 0v2h-3v-2ZM19 42h2v4h-2v-4Zm5 0h2v4h-2v-4Zm5 0h2v4h-2v-4Zm5 0h2v4h-2v-4Zm5 0h2v4h-2v-4Zm5 0h2v4h-2v-4Z" />
+      </svg>
+
+      <div id="ok">
+        <p class="confirmed arrive d1">You have been confirmed and can now
+          utilize the app.</p>
+        <p class="welcome arrive d2">Welcome to <span>CountAble</span></p>
+        <a class="btn arrive d2" href="countable://">Open CountAble</a>
+        <p class="hint arrive d2">On your phone this opens the app. Otherwise,
+          just switch back to CountAble and sign in.</p>
+      </div>
+
+      <div id="bad" style="display:none">
+        <p class="confirmed err" id="badMsg"></p>
+        <p class="hint">Open the CountAble app and sign in — it will offer to
+          send a fresh confirmation link.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Supabase sends failures back on the URL fragment (expired or already-used
+    // links are the common ones). Never show "you have been confirmed" over a
+    // link that did not confirm anything.
+    var params = new URLSearchParams(location.hash.slice(1));
+    var errDesc = params.get("error_description") || params.get("error");
+    if (errDesc) {
+      document.getElementById("ok").style.display = "none";
+      document.getElementById("bad").style.display = "";
+      document.getElementById("badMsg").textContent =
+        decodeURIComponent(errDesc).replace(/\+/g, " ");
+    }
+  </script>
+</body>
+</html>
