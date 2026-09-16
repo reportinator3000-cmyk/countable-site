@@ -1,0 +1,8 @@
+{
+  "applinks": {
+    "details": [
+      { "appIDs": ["L3R2L8MULG.app.getcountable.countable"],
+        "components": [ { "/": "/plans", "comment": "the plan screen (?plan=basic)" } ] }
+    ]
+  }
+}

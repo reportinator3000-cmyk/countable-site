@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Choose your plan in CountAble</title>
+  <meta name="description" content="CountAble plans are chosen inside the app (DATA → COUNTABLE PLANS). Basic is $3.99 a month; Premium is $12.99 a month." />
+  <link rel="stylesheet" href="style.css?v=2" />
+  <style>
+    /* The plan panels reuse the home page's inner glass panels (.features /
+       .feature) and the amber glass button (.btn) from style.css. */
+    .price {
+      display: block; color: var(--amber); font-size: 18px; font-weight: 800;
+      letter-spacing: 0.08em; margin-bottom: 8px;
+    }
+    .cta { text-align: center; margin-top: 24px; }
+    .hint { margin-top: 14px; font-size: 16.5px; color: var(--muted); }
+    .home { margin-top: 18px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="./">COUNT<span>ABLE</span></a>
+      <nav>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="sms.html">SMS</a>
+        <a href="support.html">Support</a>
+      </nav>
+    </header>
+
+    <div class="card">
+      <h1>Choose your plan in CountAble</h1>
+      <p>Plans are chosen inside the CountAble app. Open the app, then go to
+        <b>DATA → COUNTABLE PLANS</b>. Both paid plans are monthly.</p>
+
+      <div class="features">
+        <div class="feature"><b>Basic</b>
+          <span class="price">$3.99 / month</span>
+          <p>Teams, buddies, the group text, bets and the stake board.</p></div>
+        <div class="feature"><b>Premium</b>
+          <span class="price">$12.99 / month</span>
+          <p>Everything in Basic, plus the private coach.</p></div>
+      </div>
+
+      <div class="cta">
+        <a class="btn" id="open" href="countable://plans?plan=basic">Open CountAble</a>
+        <p class="hint">On your phone this opens the plans screen in the app.
+          Otherwise, open CountAble and find the plans under
+          DATA → COUNTABLE PLANS.</p>
+      </div>
+
+      <p class="home"><a href="./">Back to the home page</a></p>
+    </div>
+
+    <footer>
+      <p>© 2026 CountAble ·
+        <a href="./">Home</a> ·
+        <a href="privacy.html">Privacy Policy</a> ·
+        <a href="terms.html">Terms of Use</a> ·
+        <a href="sms.html">SMS Program</a> ·
+        <a href="support.html">Support</a></p>
+    </footer>
+  </div>
+
+  <script>
+    // The trial texts link here with ?plan=basic; carry the same
+    // pre-selection into the app's deep link. It only pre-selects a card —
+    // nothing is bought from this page.
+    var plan = new URLSearchParams(location.search).get("plan");
+    if (plan === "premium") {
+      document.getElementById("open").href = "countable://plans?plan=premium";
+    }
+  </script>
+</body>
+</html>
