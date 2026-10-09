@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Confirm Your Email — CountAble</title>
+  <link rel="stylesheet" href="style.css?v=2" />
+  <style>
+    /* .narrow and .btn come from style.css (the app's tokens). */
+    /* The app's slow fade-in (2750ms route fade is the house pace); this is
+       its short cousin so the page arrives rather than snaps. */
+    .arrive { opacity: 0; animation: arrive 1400ms cubic-bezier(.2,.6,.2,1) forwards; }
+    .arrive.d1 { animation-delay: 240ms; }
+    .arrive.d2 { animation-delay: 520ms; }
+    @keyframes arrive { to { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) {
+      .arrive, .arrive.d1, .arrive.d2 { animation: none; opacity: 1; }
+    }
+    .robot { display: block; margin: 4px auto 20px; width: 84px; height: 84px; }
+    .robot path, .robot circle, .robot rect, .robot ellipse { fill: var(--amber); }
+    .confirmed {
+      font-size: 19px; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; line-height: 1.7; color: var(--fg);
+      margin: 0 auto; max-width: 340px;
+    }
+    .welcome {
+      font-size: 27px; font-weight: 900; letter-spacing: .14em;
+      text-transform: uppercase; margin-top: 20px; color: var(--fg);
+    }
+    .welcome span { color: var(--amber); }
+    .btn { margin-top: 26px; }
+    button.btn { cursor: pointer; font: inherit; }
+    button.btn[disabled] { opacity: .6; cursor: default; }
+    .hint { margin-top: 16px; font-size: 16.5px; color: var(--muted); }
+    .err { color: hsl(0,80%,68%); font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="./">COUNT<span>ABLE</span></a>
+    </header>
+
+    <div class="card narrow">
+      <!-- The app's own DATA-tab robot, ported 1:1 from
+           countable-app/src/components/icons/RobotIcon.tsx (64x64, even-odd
+           cutouts for the eyes and mouth). Same mark as the welcome card. -->
+      <svg class="robot arrive" viewBox="0 0 64 64" aria-hidden="true">
+        <circle cx="32" cy="6" r="3" />
+        <rect x="31" y="8" width="2" height="8" />
+        <ellipse cx="32" cy="16" rx="6" ry="2.5" />
+        <rect x="4" y="32" width="6" height="10" rx="2" />
+        <rect x="54" y="32" width="6" height="10" rx="2" />
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M12 22a4 4 0 0 1 4-4h32a4 4 0 0 1 4 4v26a4 4 0 0 1-4 4H16a4 4 0 0 1-4-4V22ZM16 30a6 6 0 0 1 12 0v2h-3v-2a3 3 0 0 0-6 0v2h-3v-2Zm20 0a6 6 0 0 1 12 0v2h-3v-2a3 3 0 0 0-6 0v2h-3v-2ZM19 42h2v4h-2v-4Zm5 0h2v4h-2v-4Zm5 0h2v4h-2v-4Zm5 0h2v4h-2v-4Zm5 0h2v4h-2v-4Zm5 0h2v4h-2v-4Z" />
+      </svg>
+
+      <!-- Nothing is confirmed by OPENING this page: mail scanners open
+           links on their own. The button is the confirmation. -->
+      <div id="ask">
+        <p class="confirmed arrive d1">Confirm this is your email.</p>
+        <button class="btn arrive d2" id="go" type="button">Confirm my email</button>
+        <p class="hint arrive d2">One tap and your CountAble account is
+          confirmed.</p>
+      </div>
+
+      <div id="ok" style="display:none">
+        <p class="confirmed">Your email is confirmed.</p>
+        <p class="welcome">Now invite your <span>coach</span></p>
+        <p class="hint">Your coach has an email address of its own. It is the
+          one this email came from, and it is on the contact card in the app.
+          Invite it to anything on your calendar, a workout class or a race,
+          and it lands on your PLAN. Your coach now answers those invitations,
+          so your calendar shows it as going.</p>
+        <a class="btn" href="countable://">Open CountAble</a>
+        <p class="hint">On your phone this opens the app. Otherwise, just
+          switch back to CountAble.</p>
+      </div>
+
+      <div id="bad" style="display:none">
+        <p class="confirmed err" id="badMsg"></p>
+        <p class="hint" id="badHint"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // The link in the coach's email carries a one-time token (?t=...). The
+    // token is POSTed to the backend only when the button is tapped.
+    var ENDPOINT =
+      "https://kqvcpcxcmgafbhjdjnak.supabase.co/functions/v1/contact-email-confirm";
+    var token = new URLSearchParams(location.search).get("t") || "";
+    var ask = document.getElementById("ask");
+    var ok = document.getElementById("ok");
+    var bad = document.getElementById("bad");
+    var go = document.getElementById("go");
+    var EXPIRED = "This link has expired or was replaced by a newer one.";
+    var EXPIRED_HINT =
+      "Open CountAble, go to DATA, then ACCOUNT, and tap SEND IT AGAIN.";
+
+    function show(el) {
+      ask.style.display = ok.style.display = bad.style.display = "none";
+      el.style.display = "";
+    }
+    function fail(msg, hint) {
+      document.getElementById("badMsg").textContent = msg;
+      document.getElementById("badHint").textContent = hint;
+      show(bad);
+    }
+
+    if (!token) fail(EXPIRED, EXPIRED_HINT);
+
+    go.addEventListener("click", function () {
+      go.disabled = true;
+      go.textContent = "Confirming…";
+      fetch(ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: token }),
+      })
+        .then(function (r) {
+          return r.json().catch(function () { return null; }).then(function (j) {
+            return { status: r.status, body: j };
+          });
+        })
+        .then(function (res) {
+          if (res.body && res.body.ok) { show(ok); return; }
+          if (res.status === 400) { fail(EXPIRED, EXPIRED_HINT); return; }
+          throw new Error("unexpected");
+        })
+        .catch(function () {
+          // Nothing was confirmed and nothing was lost: the same button works
+          // again once the connection does.
+          go.disabled = false;
+          go.textContent = "Confirm my email";
+          var h = ask.querySelector(".hint");
+          h.textContent = "Couldn't reach CountAble just now. Try the button again.";
+          h.className = "hint err";
+        });
+    });
+  </script>
+</body>
+</html>
