@@ -56,7 +56,10 @@ var FILMS = "https://kqvcpcxcmgafbhjdjnak.supabase.co/storage/v1/object/public/v
     end.classList.add("on");
     // A film may fade to black on its very last frame. Step back to the last
     // picture so the button arrives over the film, not over nothing.
-    if (film.duration > 2) film.currentTime = film.duration - 0.9;
+    // How far back is the page's own number (data-rest, in seconds): a film
+    // that starts fading early names a larger one. 0.9 unless it says.
+    var rest = parseFloat(stage.getAttribute("data-rest")) || 0.9;
+    if (film.duration > rest + 1) film.currentTime = film.duration - rest;
   });
   document.getElementById("again").addEventListener("click", fromTheTopWithSound);
   film.addEventListener("error", function () {
