@@ -1,0 +1,25 @@
+/* A FILM A FRIEND WAS TEXTED (owner, Oct 13 2026). The film fills the screen
+   on black; nothing else is on the page until it ends. */
+html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif; color: #fff; -webkit-tap-highlight-color: transparent; }
+#stage { position: fixed; inset: 0; background: #000; }
+#film { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #000; }
+#sound { position: absolute; left: 50%; transform: translateX(-50%); top: calc(env(safe-area-inset-top, 0px) + 20px);
+  height: 44px; padding: 0 16px; border: 0; border-radius: 16px; background: rgba(0,0,0,0.55); color: hsl(35, 85%, 60%);
+  display: flex; align-items: center; gap: 8px; font: 800 13px/1 inherit; font-family: inherit; letter-spacing: 1.3px; cursor: pointer; }
+#sound svg { width: 16px; height: 16px; }
+#track { position: absolute; left: 20px; right: 20px; bottom: calc(env(safe-area-inset-bottom, 0px) + 20px); height: 3px; border-radius: 2px; background: rgba(255,255,255,0.2); overflow: hidden; }
+#fill { height: 3px; width: 0; border-radius: 2px; background: hsl(35, 85%, 60%); }
+/* The end: the button is not on the page, and cannot be tapped, until the
+   film has played through. It arrives slowly, like everything in the app. */
+#end { position: absolute; left: 20px; right: 20px; bottom: calc(env(safe-area-inset-bottom, 0px) + 28px); display: flex; flex-direction: column; gap: 10px;
+  opacity: 0; visibility: hidden; transition: opacity 1.5s ease-out, visibility 0s linear 1.5s; }
+#end.on { opacity: 1; visibility: visible; transition: opacity 1.5s ease-out; }
+#get { height: 48px; border-radius: 14px; border: 1px solid rgba(255,195,135,0.55); background: hsla(30, 82%, 50%, 0.85); box-shadow: 0 3px 16px rgba(40,15,0,0.45);
+  color: hsl(220, 30%, 10%); font-weight: 800; font-size: 15px; letter-spacing: 1.4px; display: flex; align-items: center; justify-content: center; text-decoration: none; }
+#again { height: 44px; border: 0; background: none; color: rgba(255,255,255,0.8); font: 800 13px/1 inherit; font-family: inherit; letter-spacing: 1.3px;
+  display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; }
+#again svg { width: 16px; height: 16px; }
+#gone { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; text-align: center; padding: 0 32px; font-size: 16px; line-height: 22px; font-weight: 700; color: rgba(255,255,255,0.8); }
+.hide { display: none !important; }
+@media (prefers-reduced-motion: reduce) { #end, #end.on { transition: none; } }
