@@ -137,6 +137,7 @@ h3 {
 }
 p { margin: 9px 0; color: rgba(255, 255, 255, 0.82); }
 ul { margin: 10px 0 10px 20px; }
+ol { margin: 10px 0 10px 24px; }
 li { margin: 5px 0; color: rgba(255, 255, 255, 0.82); }
 b, strong { color: #fff; }
 a { color: var(--amber); text-decoration: none; }

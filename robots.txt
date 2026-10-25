@@ -1,0 +1,9 @@
+# getcountable.app: every crawler is welcome, search engines and AI search
+# alike (Googlebot, Bingbot, OAI-SearchBot, PerplexityBot, Claude's bots...).
+# The utility pages that should stay out of results say so themselves with a
+# "noindex" tag. The one file kept out here is the owner's working notes.
+User-agent: *
+Allow: /
+Disallow: /AI-VISIBILITY.md
+
+Sitemap: https://getcountable.app/sitemap.xml

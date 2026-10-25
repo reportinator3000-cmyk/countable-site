@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- The public pages of getcountable.app. Add a page here when it is added
+     to the site; leave out utility pages (confirm, confirmed, icon tests).
+     The film pages under watch/ are left out on purpose: they are made for
+     links a friend is texted, hold almost no words, and some of their
+     one-line descriptions predate the Oct 15-18 2026 changes. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://getcountable.app/</loc><lastmod>2026-10-25</lastmod></url>
+  <url><loc>https://getcountable.app/what-is-countable.html</loc><lastmod>2026-10-25</lastmod></url>
+  <url><loc>https://getcountable.app/workout-accountability-with-friends.html</loc><lastmod>2026-10-25</lastmod></url>
+  <url><loc>https://getcountable.app/how-teams-work.html</loc><lastmod>2026-10-25</lastmod></url>
+  <url><loc>https://getcountable.app/pricing.html</loc><lastmod>2026-10-25</lastmod></url>
+  <url><loc>https://getcountable.app/faq.html</loc><lastmod>2026-10-25</lastmod></url>
+  <url><loc>https://getcountable.app/plans.html</loc><lastmod>2026-10-25</lastmod></url>
+  <url><loc>https://getcountable.app/support.html</loc></url>
+  <url><loc>https://getcountable.app/privacy.html</loc></url>
+  <url><loc>https://getcountable.app/terms.html</loc></url>
+  <url><loc>https://getcountable.app/sms.html</loc></url>
+</urlset>
