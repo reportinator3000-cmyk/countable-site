@@ -20,7 +20,7 @@
 
     <div class="card">
       <h1>Privacy Policy</h1>
-      <p class="small">Effective Date: October 25, 2026</p>
+      <p class="small">Effective Date: October 27, 2026</p>
       <p>CountAble (“we,” “our,” or “us”) respects your privacy. This policy
         describes what the app actually collects, where it goes, and how to
         get rid of it. We have tried to write it plainly rather than
@@ -30,13 +30,21 @@
         <li>We never sell your data, and we never use it for advertising.</li>
         <li>Your Apple Health data is used to coach you and nothing else.</li>
         <li>Your coach is an AI. What you tell it, and the workout and health
-          figures it reasons about, are sent to our AI provider to write each
-          reply.</li>
+          figures it reasons about, are sent to our AI provider, Anthropic, to
+          write each reply.</li>
+        <li>If you choose ChatGPT as your coach's brain (under DATA &gt;
+          COACH), your coach's replies in the coach chat and your plans are
+          written by OpenAI instead, and what they need is sent there. The app
+          asks for your OK first.</li>
         <li>The operator of CountAble can see your account details and your
           conversations with the coach, to run and improve the service.</li>
         <li>If your team uses TEAM TEXT IN APP, your teammates see what you
           write there, and the coach reads it when someone asks it
           something.</li>
+        <li>If you choose to talk with your coach by voice, what you say is
+          sent live to OpenAI, which provides the coach's speaking voice.
+          CountAble keeps the notes you see on screen, never a recording of
+          your voice.</li>
         <li>If you invite a friend, we store the name and number you picked
           for them.</li>
         <li>If you invite your coach to a calendar event, we read that event
@@ -197,6 +205,20 @@
         <li>If you would rather the coach not see your Apple Health data, do
           not grant Health permission — the rest of the app still works.</li>
       </ul>
+      <h3>Choosing ChatGPT as your coach's brain</h3>
+      <p>Our AI provider is Anthropic, whose Claude models write the coach's
+        words unless you choose otherwise. Under DATA &gt; COACH you can choose
+        ChatGPT, made by OpenAI, as your coach's brain. Only after you agree in
+        the app, your coach's replies in the coach chat and your plans
+        (GENERATE PLAN, REMIX and the star) are then written by OpenAI, so for
+        those features we send OpenAI the context described above, which can
+        include figures derived from your Apple Health data. OpenAI may keep it
+        for up to 30 days to check for abuse, and does not use it to train its
+        models. Everything else your coach does, such as the weekly review,
+        the Sunday conversation, safety replies, reminders and the team chat,
+        stays with Anthropic, and if OpenAI cannot answer, the same request
+        goes to Anthropic. Move back to Claude at any time to stop sending your
+        coaching to OpenAI.</p>
 
       <h2>5. Text Messages and Group Threads</h2>
       <p>We text your mobile number only the codes you sign in with, a check
@@ -257,8 +279,14 @@
         <li>Our hosting and database provider, which stores the app's data</li>
         <li>Our messaging provider, which delivers the texts we send you and
           therefore receives your phone number and those messages</li>
-        <li>Our AI provider, which receives the coaching context described in
-          section 4</li>
+        <li>Anthropic, our AI provider, which receives the coaching context
+          described in section 4</li>
+        <li>OpenAI, which provides the coach's speaking voice when you choose
+          to talk with it, and writes your coach's chat replies and your plans
+          if you choose ChatGPT as your coach's brain: it receives what those
+          features need (for the voice, what you say as you say it), may keep
+          it for up to 30 days to check for abuse, and does not use it to train
+          its models</li>
         <li>Apple and our notification provider, which deliver lock-screen
           notifications if you turn them on</li>
         <li>Our crash-reporting provider, which receives error reports after
