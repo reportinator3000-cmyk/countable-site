@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SMS Program — CountAble</title>
   <link rel="stylesheet" href="style.css?v=2" />
+  <style>
+    .shots { display: flex; gap: 14px; flex-wrap: wrap; margin: 6px 0 4px; }
+    .shots figure { flex: 1 1 200px; margin: 0; }
+    .shots img { width: 100%; height: auto; display: block; border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.18); }
+    .shots figcaption { font-size: 13px; opacity: 0.75; margin-top: 6px; }
+  </style>
 </head>
 <body>
   <div class="wrap">
@@ -20,61 +27,71 @@
 
     <div class="card">
       <h1>CountAble SMS Program</h1>
-      <p>CountAble texts a one-time sign-in code only when you ask for one,
-        and sends recurring messages only to users (and accountability
-        buddies) who explicitly opt in. This page describes the program.</p>
+      <p>CountAble, from CountAble LLC, texts your mobile number for one
+        reason: signing in. Your coach, your reminders and your team reach
+        you inside the app, never by text. This page describes the texts we
+        send.</p>
 
-      <h2>What messages we send</h2>
+      <h2>What we text</h2>
       <ul>
-        <li>One-time sign-in and phone verification codes, sent only when
-          you ask for one</li>
-        <li>Workout reminders you schedule yourself in the app</li>
-        <li>Weekly progress summaries and team recaps</li>
-        <li>Accountability-buddy invitations and updates (sent only after
-          the recipient consents)</li>
-        <li>Occasional messages from your coach about CountAble's paid plans
-          and features</li>
+        <li>A one-time 6-digit sign-in code, only when you ask for one in
+          the app</li>
+        <li>The same kind of code when you add or change your number in the
+          app</li>
+        <li>A one-time notice if your number is later confirmed on a
+          different CountAble account</li>
+        <li>A reply when you text our number: HELP, STOP and START are
+          answered, and any other text from a CountAble member gets one
+          line pointing them to the app, at most once a day. If a text to us suggests you may be in
+          danger, we reply with crisis resources.</li>
       </ul>
+      <p>We never send coaching, reminders, team updates or marketing by
+        text.</p>
 
       <h2>Signing in</h2>
-      <p>A mobile number is how you sign in to CountAble. On the app's
-        sign-in screen you enter your own number and tap "TEXT ME A CODE".
-        One 6-digit code is texted only when you tap that button; entering it
-        signs you in and proves the number is yours. Asking for a code does
-        not opt you in to any other message.</p>
+      <p>A mobile number is the only way to sign in to CountAble. On the
+        app's sign-in screen you type your own number and tap
+        "TEXT ME A CODE". One 6-digit code is texted only when you tap that
+        button, and it expires in 10 minutes. Under the code boxes the screen
+        says "By entering your code you agree to the Terms of Use and Privacy
+        Policy." Entering the code signs you in and proves the number is
+        yours. Asking for a code does not sign you up for any other text.</p>
+      <div class="shots">
+        <figure>
+          <img src="sms-signin-1-number.png" width="750" height="1334"
+            alt="The CountAble sign-in screen: one field for your mobile number and the button TEXT ME A CODE." />
+          <figcaption>1. You type your number and tap TEXT ME A CODE.</figcaption>
+        </figure>
+        <figure>
+          <img src="sms-signin-2-code.png" width="750" height="1334"
+            alt="The code screen: six boxes for the texted code, the line about the Terms of Use and Privacy Policy, and CONTINUE." />
+          <figcaption>2. You enter the code we texted.</figcaption>
+        </figure>
+      </div>
 
-      <h2>How opt-in works</h2>
-      <p>After the number is verified, the app shows the consent notice
-        below, and the user must explicitly accept it. No one receives
-        recurring messages without completing this step.</p>
-      <p style="border-left:3px solid rgba(255,255,255,0.25);padding-left:14px;">
-        "By opting in, you agree to receive recurring workout reminders,
-        accountability messages, coach texts, and occasional messages about
-        CountAble plans and features. Message frequency varies. Message and
-        data rates may apply. Reply STOP to opt out, HELP for help. You can
-        change reminder settings in the app."</p>
+      <h2>How often</h2>
+      <p>Only when you ask: one text for each code you request, and no more
+        than six codes to one number in a day. The notice about a moved
+        number is sent once. Message frequency varies. Message and data
+        rates may apply. Carriers are not liable for delayed or undelivered
+        messages.</p>
 
-      <h2>Message frequency</h2>
-      <p>Frequency varies with your settings — typically up to a few messages
-        per day (your own scheduled reminders) plus weekly summaries. Messages
-        about paid plans are limited to a few in your first days and stop on
-        their own. Message and data rates may apply.</p>
-
-      <h2>Opting out and getting help</h2>
+      <h2>Stopping texts and getting help</h2>
       <ul>
-        <li>Reply <b>STOP</b> at any time to stop all messages immediately.</li>
-        <li>Reply <b>START</b> to resume messages after stopping.</li>
-        <li>Reply <b>HELP</b> for help, or contact
+        <li>Reply <b>STOP</b> at any time and we stop texting your number.
+          While it is stopped we cannot text you a sign-in code.</li>
+        <li>Reply <b>START</b> to get sign-in codes again.</li>
+        <li>Reply <b>HELP</b> for help, or email
           <a href="mailto:support@getcountable.app">support@getcountable.app</a>.</li>
-        <li>You can also pause SMS anytime from the app's settings.</li>
       </ul>
 
       <h2>Privacy</h2>
-      <p>Phone numbers and SMS consent records are used solely to operate
-        these features. We do not sell personal data, and no mobile
+      <p>Your phone number is used only to sign you in and to keep your
+        account secure. We do not sell personal data, and no mobile
         information is shared with third parties or affiliates for marketing
         or promotional purposes. See our
-        <a href="privacy.html">Privacy Policy</a>.</p>
+        <a href="privacy.html">Privacy Policy</a> and
+        <a href="terms.html">Terms of Use</a>.</p>
     </div>
 
     <footer>
