@@ -155,11 +155,14 @@
       <h3>Device, Diagnostic, and Usage Information</h3>
       <ul>
         <li>Device type, operating system, and app version</li>
-        <li>Crash and error reports, with phone numbers, email addresses, and
-          access tokens stripped out before they leave your device</li>
+        <li>Crash and error reports, with phone numbers, email addresses,
+          account ids, and access tokens stripped out before they leave your
+          device</li>
         <li>Product usage events (for example: signed up, generated a plan,
           completed a workout), recorded against a scrambled (hashed) version
           of your account id rather than your identity</li>
+        <li>The days you open the app, kept with your account so we can count
+          how many people use it. Switching analytics off stops this.</li>
         <li>How smoothly the app runs: when the app stops responding for a
           quarter of a second or longer, we note which screen was open (and
           whether a chat or a call was up), roughly how long it lasted, the
@@ -335,7 +338,8 @@
       <h2>9. Analytics, Diagnostics, and Your Opt-Out</h2>
       <p>Product analytics and error reports are recorded against a scrambled
         version of your account id. You can switch product analytics off under
-        Account in the app.</p>
+        Account in the app; that also stops the record of which days you open
+        the app.</p>
       <p>Turning analytics off does not switch off the records we need to run
         the service safely: security and authentication records, backend error
         logs, message delivery records, and abuse-prevention counters.</p>
@@ -348,9 +352,8 @@
         <li>Team chat messages, and the Sunday card posted in a team chat, are
           deleted after 90 days; other media attached to team recaps after 60
           days</li>
-        <li>Diagnostic and analytics records are kept only as long as they are
-          useful for debugging and abuse prevention, and are not tied to your
-          identity</li>
+        <li>Usage events and diagnostic records are deleted after 90 days, and
+          are not tied to your identity</li>
         <li>Message delivery records are kept as proof that opt-outs were
           honored and to resolve delivery disputes; they contain no message
           text and no full phone numbers</li>
@@ -374,8 +377,9 @@
       <ul>
         <li>Message delivery records, which hold no message text and no full
           numbers — kept as evidence that opt-out requests were honored</li>
-        <li>Diagnostic and analytics records that were already stored against
-          a scrambled id rather than your identity</li>
+        <li>Usage events and diagnostic records, which are stored against a
+          scrambled id rather than your identity, until they are deleted after
+          90 days</li>
         <li>A dated record that a deletion occurred, identified only by a
           scrambled id</li>
       </ul>
